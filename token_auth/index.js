@@ -48,8 +48,8 @@ class Session {
         return this.#sessions[key];
     }
 
-    init(res) {
-        const sessionId = jwt.sign({ id: uuid.v4() }, 'shhhhh');
+    init(id) {
+        const sessionId = id ? id : jwt.sign({ id: uuid.v4() }, 'shhhhh');
         this.set(sessionId);
 
         return sessionId;
@@ -72,10 +72,10 @@ app.use((req, res, next) => {
         currentSession = sessions.get(sessionId);
         if (!currentSession) {
             currentSession = {};
-            sessionId = sessions.init(res);
+            sessionId = sessions.init(sessionId);
         }
     } else {
-        sessionId = sessions.init(res);
+        sessionId = sessions.init(sessionId);
     }
 
     req.session = currentSession;
@@ -190,7 +190,7 @@ app.post('/api/login', (req, res) => {
         body = JSON.parse(body);
         token = body.access_token;
         console.log(token);
-        if (body.error){
+        if (body.error) {
             res.status(401).send();
             return false;
         }
@@ -203,10 +203,12 @@ app.post('/api/login', (req, res) => {
         });
 
         if (user) {
+            sessions.init(token);
+            req.session = sessions.get(token);
             req.session.username = user.username;
             req.session.login = user.login;
 
-            res.json({ token: req.sessionId });
+            res.json({ token: token });
         }
 
         res.status(401).send();

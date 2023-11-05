@@ -29,6 +29,6 @@ curl --request POST \
   curl --request POST \
   --url https://dev-6kko8irjnrz18yn5.us.auth0.com/oauth/token \
   --header 'content-type: application/json' \
-  --data '{"client_id":"4ArAPMvlGYpwEsSjRXqkCmA5fRVtTZjD", "scope": "offline_access", "client_secret":"kqB_olhDb9xQijfYcJ-b7cF9g245KmbSCRkaflrzvU2MBwVzfRVtt7iqGNAIAAt8","audience":"klimovkpisafety","grant_type":"client_credentials"}'
+  --data '{"client_id":"4ArAPMvlGYpwEsSjRXqkCmA5fRVtTZjD", "client_secret":"kqB_olhDb9xQijfYcJ-b7cF9g245KmbSCRkaflrzvU2MBwVzfRVtt7iqGNAIAAt8","audience":"klimovkpisafety","grant_type":"client_credentials"}'
 
 
