@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const port = 3000;
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(bodyParser.json());
@@ -43,7 +44,7 @@ class Session {
     }
 
     init(res) {
-        const sessionId = uuid.v4();
+        const sessionId = jwt.sign({ id: uuid.v4() }, 'shhhhh');
         this.set(sessionId);
 
         return sessionId;
