@@ -7,6 +7,7 @@ const port = 3000;
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 var request = require("request");
+const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
 
 const app = express();
 app.use(bodyParser.json());
@@ -218,3 +219,35 @@ app.post('/api/login', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
+
+
+
+// Authorization middleware. When used, the Access Token must
+// exist and be verified against the Auth0 JSON Web Key Set.
+const checkJwt = auth({
+  audience: audience,
+  issuerBaseURL: `https://dev-6kko8irjnrz18yn5.us.auth0.com/`,
+});
+
+// This route doesn't need authentication
+app.get('/api/public', function(req, res) {
+  res.json({
+    message: 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'
+  });
+});
+
+// This route needs authentication
+app.get('/api/private', checkJwt, function(req, res) {
+  res.json({
+    message: 'Hello from a private endpoint! You need to be authenticated to see this.'
+  });
+});
+
+const checkScopes = requiredScopes('read:messages');
+
+app.get('/api/private-scoped', checkJwt, checkScopes, function(req, res) {
+  res.json({
+    message: 'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.'
+  });
+});
