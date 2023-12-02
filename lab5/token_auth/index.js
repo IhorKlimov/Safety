@@ -8,6 +8,7 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 var request = require("request");
 const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
+const { log } = require('console');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,7 +18,14 @@ const clientSecret = "DGZzYm0Q6FjKX7SSgg259oaktZ69xfMcH_b2_s1nFbqjz4l8S0IJUgoK4f
 const clientId = "XKJpftAxA1wf4rd41rTlcCYlfKj0I3uS";
 const audience = 'https://dev-6kko8irjnrz18yn5.us.auth0.com/api/v2/';
 
-const SESSION_KEY = 'Authorization';
+// Authorization middleware. When used, the Access Token must
+// exist and be verified against the Auth0 JSON Web Key Set.
+const checkJwt = auth({
+    audience: audience,
+    issuerBaseURL: `https://dev-6kko8irjnrz18yn5.us.auth0.com/`,
+  });
+
+const SESSION_KEY = 'Session';
 
 class Session {
     #sessions = {}
@@ -139,6 +147,10 @@ app.get('/refreshToken', (req, res) => {
 });
 
 app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'));
+})
+
+app.get('/profile', checkJwt, (req, res) => {
     if (req.session.username) {
         return res.json({
             username: req.session.username,
@@ -209,7 +221,7 @@ app.post('/api/login', (req, res) => {
             req.session.username = user.username;
             req.session.login = user.login;
 
-            res.json({ token: token });
+            res.json({ token: token, username: user.username  });
         }
 
         res.status(401).send();
@@ -220,15 +232,6 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
-
-
-
-// Authorization middleware. When used, the Access Token must
-// exist and be verified against the Auth0 JSON Web Key Set.
-const checkJwt = auth({
-  audience: audience,
-  issuerBaseURL: `https://dev-6kko8irjnrz18yn5.us.auth0.com/`,
-});
 
 // This route doesn't need authentication
 app.get('/api/public', function(req, res) {

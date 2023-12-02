@@ -124,11 +124,13 @@
         try {
             token = JSON.parse(session).token;
         } catch(e) {}
+        console.log("token check", token)
 
         if (token) {
-            axios.get('/', {
+            axios.get('/profile', {
                 headers: {
-                    Authorization: token
+                    Authorization: 'Bearer '+ token,
+                    Session: token
                 }
             }).then((response) => {
                 const { username } = response.data;
@@ -173,7 +175,8 @@
                     password
                 }
             }).then((response) => {
-                const { username } =  response.data;
+                const { username, token } =  response.data;
+                console.log("check", token);
                 sessionStorage.setItem('session', JSON.stringify(response.data));
                 location.reload();
             }).catch((response) => {
