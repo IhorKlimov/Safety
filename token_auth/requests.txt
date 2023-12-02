@@ -1,5 +1,5 @@
 
-curl --request POST  --url 'https://kpi.eu.auth0.com/oauth/token'  --header 'content-type: application/x-www-form-urlencoded'  --data 'audience=https://kpi.eu.auth0.com/api/v2&grant_type=client_credentials&client_id=JIvCO5c2IBHlAe2patn6l6q5H35qxti0&client_secret=ZRF8Op0tWM36p1_hxXTU-B0K_Gq_-eAVtlrQpY24CasYiDmcXBhNS6IJMNcz1EgB'
+curl --request POST  --url 'https://kpi.eu.auth0.com/oauth/token/'  --header 'content-type: application/x-www-form-urlencoded'  --data 'audience=https://kpi.eu.auth0.com/api/v2/&grant_type=client_credentials&client_id=JIvCO5c2IBHlAe2patn6l6q5H35qxti0&client_secret=ZRF8Op0tWM36p1_hxXTU-B0K_Gq_-eAVtlrQpY24CasYiDmcXBhNS6IJMNcz1EgB'
 
 curl --request POST  --url 'https://dev-6kko8irjnrz18yn5.us.auth0.com/oauth/token'  --header 'content-type: application/x-www-form-urlencoded'  --data 'audience=https://dev-6kko8irjnrz18yn5.us.auth0.com/api/v2/&grant_type=client_credentials&client_id=XKJpftAxA1wf4rd41rTlcCYlfKj0I3uS&client_secret=Mzk1E2hGze_qaeS8_pV_TWQxtd5QXF0sYstzSk9lsi_UyWzI_VwElS-kXqL8T8iH'
 
@@ -31,4 +31,41 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{"client_id":"4ArAPMvlGYpwEsSjRXqkCmA5fRVtTZjD", "client_secret":"kqB_olhDb9xQijfYcJ-b7cF9g245KmbSCRkaflrzvU2MBwVzfRVtt7iqGNAIAAt8","audience":"klimovkpisafety","grant_type":"client_credentials"}'
 
+
+
+
+
+
+
+ihorklimov$ curl --request POST  --url 'https://kpi.eu.auth0.com/oauth/token/'  --header 'content-type: application/x-www-form-urlencoded'  --data 'audience=https://kpi.eu.auth0.com/api/v2/&grant_type=client_credentials&client_id=JIvCO5c2IBHlAe2patn6l6q5H35qxti0&client_secret=ZRF8Op0tWM36p1_hxXTU-B0K_Gq_-eAVtlrQpY24CasYiDmcXBhNS6IJMNcz1EgB'
+{"access_token":"",
+"scope":"read:users create:users","expires_in":86400,"token_type":"Bearer"}%     ihorklimov$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+curl -L 'https://kpi.eu.auth0.com/api/v2/users' \
+-H 'Content-Type: application/json' \
+-H 'authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjVCZTlBZFhrMERaUjhmR1dZYjdkViJ9.eyJpc3MiOiJodHRwczovL2twaS5ldS5hdXRoMC5jb20vIiwic3ViIjoiSkl2Q081YzJJQkhsQWUycGF0bjZsNnE1SDM1cXh0aTBAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8va3BpLmV1LmF1dGgwLmNvbS9hcGkvdjIvIiwiaWF0IjoxNzAwODU2NjA3LCJleHAiOjE3MDA5NDMwMDcsImF6cCI6IkpJdkNPNWMySUJIbEFlMnBhdG42bDZxNUgzNXF4dGkwIiwic2NvcGUiOiJyZWFkOnVzZXJzIGNyZWF0ZTp1c2VycyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.qFmSQXl7arIaRyuPMrYvWX3GhBBEHxXlCJB2hzO9nC9m6zVKUlIPDOA48ZWnNP7eNwNdlWoAcsr0voAxjgVYhFPkE0KfkibdvpLZvn8o2eN_t7Z6G-3D3S5M5eSLwsaFZ7_tKz98tvseFPTLkoWkertL6xUXssRigrnmAFrQPsq-4XW6_3G_01p3Z6lba83yIxQFF0e1p5rQ73R-SHn8liTlGPmWMTrCatTKAHnR3NsLTdCegXkjIqn5EmakMZFebwp3CbBMRmUgeQmRWSXXbWGYWnhJjgn5k3mfHuP0xUfSD01uOyjG7MTJ6R7DnBZxHzwpDgp7_VBke9wNTYJ7UQ' \
+-H 'Accept: application/json' \
+-d '{"email":"iklimov2@gmail.com","user_metadata":{},"blocked":false,"email_verified":false,"app_metadata":{},"given_name":"Ihor","family_name":"Klimov","name":"Ihor","nickname":"IhorKlimov","picture":"https://media.istockphoto.com/id/1433096017/photo/irrigation-system-on-agricultural-soybean-field-at-sunset.webp?b=1&s=612x612&w=0&k=20&c=KNfjoJKFZTfyZ3kW4J1-pihr1S7xJ5_VVf4FvojptHo=","user_id":"1234123fwef","connection":"Username-Password-Authentication","password":"M23n2gm23t(m1","verify_email":false}'
 
